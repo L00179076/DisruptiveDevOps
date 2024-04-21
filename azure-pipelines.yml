@@ -15,8 +15,14 @@ jobs:
 
   steps:
   - checkout: self
+    displayName: 'Checkout Repository'
+
   - script: |
-      sudo apt-get update
-      sudo apt-get install -y openjdk-21-jdk 
-      java -version  
-    displayName: 'Set up JDK 21'
+      sudo apt-get update && \
+      sudo apt-get install -y openjdk-21-jdk && \
+      java -version && \
+      mvn clean install && \
+      docker login -u $(dockerUsername) -p $(dockerPassword) && \
+      docker build -t riya652/devops:springboot. && \
+      docker push riya652/devops:springboot
+    displayName: 'Build, Test, and Push Docker Image'
