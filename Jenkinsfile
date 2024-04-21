@@ -13,7 +13,7 @@ pipeline {
         stage('Build docker image'){
             steps{
                 script{
-                    sh 'docker build -t javatechie/maven-demo .'
+                    sh 'docker build -t riya652/devops:Springboot1 .'
                 }
             }
         }
