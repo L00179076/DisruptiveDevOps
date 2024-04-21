@@ -1,16 +1,20 @@
 pipeline {
     agent any
-    tools {
-        // Update Maven tool installation name to match the one in Jenkins
-        maven 'maven'
-    }
+    
     stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
         stage('Build Maven') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/L00179076/DisruptiveDevOps']]])
+                tool name: 'maven', type: 'maven'
                 sh 'mvn clean install'
             }
         }
+        
         stage('Build docker image') {
             steps {
                 script {
@@ -18,6 +22,7 @@ pipeline {
                 }
             }
         }
+        
         stage('Push image to Hub') {
             steps {
                 script {
@@ -30,4 +35,3 @@ pipeline {
         }
     }
 }
-
