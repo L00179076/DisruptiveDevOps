@@ -15,9 +15,11 @@ jobs:
 
   steps:
   - checkout: self
-  - task: UseJavaVersion@1
-    inputs:
-      version: '21'
+  - script: |
+      sudo apt-get update
+      sudo apt-get install -y openjdk-21-jdk  # Install Java 21
+      java -version  # Verify Java installation
+    displayName: 'Set up JDK 21'
   - script: |
       mvn clean install
     displayName: 'Build with Maven'
@@ -28,5 +30,3 @@ jobs:
       docker build -t riya652/devops:springboot-images-new .
       docker push riya652/devops:springboot-images-new
     displayName: 'Build & push Docker image'
-
-
