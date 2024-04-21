@@ -8,11 +8,11 @@ public class Vunerabilities {
     out.println("<p>Welcome, " + userInput + "!</p>");
 
     Runtime.getRuntime().exec("ping " + userInput);
+    ObjectInputStream ois = new ObjectInputStream(new FileInputStream("data.ser"));
+    Object obj = ois.readObject();
     public Vunerabilities(ObjectInputStream ois) {
         this.ois = ois;
     }
-    ObjectInputStream ois = new ObjectInputStream(new FileInputStream("data.ser"));
-    Object obj = ois.readObject();
     public String getQuery() {
         return query;
     }
