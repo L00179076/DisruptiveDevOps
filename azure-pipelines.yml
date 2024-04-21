@@ -1,0 +1,22 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+- job: build_and_push_docker_image
+  displayName: 'Build and Push Docker Image'
+  variables:
+    dockerUsername: 'riya652'
+    dockerPassword: 'N/cjZZjbBsD;8e6'
+
+  steps:
+  - checkout: self
+  - script: |
+      sudo apt-get update
+      sudo apt-get install -y openjdk-21-jdk 
+      java -version  
+    displayName: 'Set up JDK 21'
