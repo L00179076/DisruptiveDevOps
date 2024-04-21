@@ -44,8 +44,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          image: devops/springboot-images-new
           tags: user/app:latest
-          dockerfile: Dockerfile
+   
           
        
