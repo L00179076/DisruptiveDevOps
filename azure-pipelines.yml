@@ -1,29 +1,28 @@
-# Docker
-# Build a Docker image
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
 trigger:
-- main
+  branches:
+    include:
+      - main
 
-resources:
-- repo: self
+pool:
+  vmImage: 'ubuntu-latest'
 
-variables:
-  tag: '$(Build.BuildId)'
+jobs:
+- job: build_and_push_docker_image
+  displayName: 'Build and Push Docker Image'
+  variables:
+    dockerUsername: 'riya652'
+    dockerPassword: 'N/cjZZjbBsD;8e6'
 
-stages:
-- stage: Build
-  displayName: Build image
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          $(tag)
+  steps:
+  - checkout: self
+    displayName: 'Checkout Repository'
+
+  - script: |
+      sudo apt-get update && \
+      sudo apt-get install -y openjdk-21-jdk && \
+      java -version && \
+      mvn clean install && \
+      docker login -u $(dockerUsername) -p $(dockerPassword) && \
+      docker build -t riya652/devops:springboot. && \
+      docker push riya652/devops:springboot
+    displayName: 'Build, Test, and Push Docker Image'
