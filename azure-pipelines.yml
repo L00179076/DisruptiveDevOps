@@ -27,6 +27,6 @@ jobs:
       docker login -u $(dockerUsername) -p $(dockerPassword)
     displayName: 'Login to Docker Hub'
   - script: |
-      docker build -t riya652/devops:springboot-images-new .
-      docker push riya652/devops:springboot-images-new
+      docker build -t riya652/devops:springboot-images-new1 .
+      docker push riya652/devops:springboot-images-new1
     displayName: 'Build & push Docker image'
